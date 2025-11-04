@@ -44,8 +44,24 @@ function MovieModal({ movie, onClose }: MovieModalProps) {
           &times;
         </button>
 
+        {/* <img
+          src={
+            movie.backdrop_path
+              ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+              : "https://via.placeholder.com/1280x720?text=No+Image"
+          }
+          alt={movie.title}
+          className={css.image}
+        /> */}
+
         <img
-          src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+          src={
+            movie.backdrop_path
+              ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}`
+              : movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+              : "/assets/no-image.png"
+          }
           alt={movie.title}
           className={css.image}
         />

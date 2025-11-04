@@ -7,6 +7,8 @@ interface MovieGridProps {
 }
 
 function MovieGrid({ movies, onSelect }: MovieGridProps) {
+  if (movies.length === 0) return null; // не рендеримо галерею, якщо фільмів немає
+
   return (
     <ul className={css.grid}>
       {movies.map((movie) => (
