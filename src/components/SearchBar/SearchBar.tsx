@@ -6,20 +6,15 @@ interface SearchBarProps {
 }
 
 function SearchBar({ onSubmit }: SearchBarProps) {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const action = (formData: FormData) => {
+    const query = String(formData.get("query") || "").trim();
 
-    const form = event.currentTarget;
-    const value = (
-      form.elements.namedItem("query") as HTMLInputElement
-    ).value.trim();
-
-    if (value === "") {
+    if (query === "") {
       toast.error("Please enter your search query.");
       return;
     }
 
-    onSubmit(value);
+    onSubmit(query);
   };
 
   return (
@@ -33,13 +28,14 @@ function SearchBar({ onSubmit }: SearchBarProps) {
         >
           Powered by TMDB
         </a>
-        <form className={css.form} onSubmit={handleSubmit}>
+
+        <form className={css.form} action={action}>
           <input
             className={css.input}
             type="text"
             name="query"
-            placeholder="Search movies..."
             autoComplete="off"
+            placeholder="Search movies..."
             autoFocus
           />
           <button className={css.button} type="submit">
